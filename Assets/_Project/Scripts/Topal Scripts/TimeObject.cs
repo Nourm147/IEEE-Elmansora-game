@@ -3,24 +3,24 @@ using UnityEngine;
 public class TimeObject : MonoBehaviour
 {
     [Header("Visibility Settings")]
-    public bool showInPresent = true; // íÙåÑ İí ÇáÍÇÖÑ¿
-    public bool showInPast = false;   // íÙåÑ İí ÇáãÇÖí¿
+    public bool showInPresent = true; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¿
+    public bool showInPast = false;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private void OnEnable()
     {
-        // áãÇ ÇáÓßÑíÈÊ íÔÊÛá¡ ÈíÔÊÑß İí ÇáÜ Event
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ Event
         TimeManager.OnTimeShifted += HandleTimeShift;
     }
 
-    private void OnDisable()
-    {
-        // áãÇ íÊŞİá¡ ÈíáÛí ÇáÇÔÊÑÇß ÚÔÇä ãÇíÍÕáÔ Memory Leak
-        TimeManager.OnTimeShifted -= HandleTimeShift;
-    }
+    // private void OnDisable()
+    // {
+    //     // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Memory Leak
+    //     TimeManager.OnTimeShifted -= HandleTimeShift;
+    // }
 
     private void HandleTimeShift(bool isPresent)
     {
-        // ÈäÇÁğ Úáì ÇáÒãä ÇáÍÇáí¡ ÔÛá Ãæ ÇŞİá ÇáÜ Object
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Object
         if (isPresent)
         {
             gameObject.SetActive(showInPresent);

@@ -6,6 +6,7 @@ public class LightBeam : MonoBehaviour
     [Header("Settings")]
     public float maxDistance = 50f;
     public LayerMask interactLayer;
+    public LayerMask winLayer;
 
     private const float RayOffset = 0.01f;
     private LineRenderer _lineRenderer;
@@ -40,6 +41,15 @@ public class LightBeam : MonoBehaviour
                 // Trigger the next bounce immediately
                 mirror.Reflect(hit.point, direction, hit.normal, bounceCount);
             }
+        }
+        else if (Physics.Raycast(rayStart, direction, out RaycastHit hit2, maxDistance, winLayer))
+        {
+            _lineRenderer.SetPosition(1, hit2.point);
+            BeamManager.Instance.FinishPuzzle();
+        }
+        else if (Physics.Raycast(rayStart, direction, out RaycastHit hit3, maxDistance))
+        {
+            _lineRenderer.SetPosition(1, hit3.point);
         }
         else
         {

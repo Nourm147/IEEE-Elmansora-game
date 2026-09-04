@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class BeamManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BeamManager : MonoBehaviour
 
     private List<LightBeam> _beamPool = new List<LightBeam>();
     private int _activeBeamsThisFrame = 0;
+
+    public UnityEvent onFinishEvent;
 
     private void Awake()
     {
@@ -47,5 +50,11 @@ public class BeamManager : MonoBehaviour
         LightBeam beam = _beamPool[_activeBeamsThisFrame];
         _activeBeamsThisFrame++;
         return beam;
+    }
+
+
+    public void FinishPuzzle()
+    {
+        onFinishEvent.Invoke();
     }
 }
