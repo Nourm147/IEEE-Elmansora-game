@@ -32,6 +32,7 @@ namespace EasyPeasyFirstPersonController
         public Transform cameraParent;
         public Transform groundCheck;
         public LayerMask groundMask;
+        public RayInteractor rayInteractor; // Reference to the object interactor
 
         [HideInInspector] public CharacterController characterController;
         [HideInInspector] public IInputManager input;
@@ -120,6 +121,13 @@ namespace EasyPeasyFirstPersonController
             standingCharacterControllerHeight = characterController.height;
             standingCharacterControllerCenter = characterController.center;
             input = GetComponent<IInputManager>();
+
+            // Auto-find RayInteractor if not assigned manually in Inspector
+            if (rayInteractor == null)
+            {
+                rayInteractor = GetComponentInChildren<RayInteractor>();
+            }
+
             states = new PlayerStateFactory(this);
 
             currentState = states.Grounded();
@@ -142,6 +150,13 @@ namespace EasyPeasyFirstPersonController
         {
             float mouseX = input.lookInput.x * mouseSensitivity;
             float mouseY = input.lookInput.y * mouseSensitivity;
+
+            // Lock camera look rotation if an object is currently being inspected/rotated via RMB
+            if (rayInteractor != null && rayInteractor.IsRotatingObject)
+            {
+                mouseX = 0f;
+                mouseY = 0f;
+            }
 
             transform.Rotate(Vector3.up * mouseX);
 
@@ -180,32 +195,32 @@ namespace EasyPeasyFirstPersonController
 
             // Smoothly transition the actual camera Y to include the bob offset
             float desiredY = originalCamY + targetBobOffset;
-            
+
             // Apply Camera Shake (Realistic Directional Impact)
             if (cameraShakeTimer > 0)
             {
                 cameraShakeTimer -= Time.deltaTime;
-                
-                float normalizedTime = cameraShakeTimer / 0.4f; 
-                float shakeFactor = normalizedTime * normalizedTime * normalizedTime; 
-                
+
+                float normalizedTime = cameraShakeTimer / 0.4f;
+                float shakeFactor = normalizedTime * normalizedTime * normalizedTime;
+
                 // 1. Sharp dip downwards based on frontal impact
                 float frontalImpact = Mathf.Abs(cameraShakeDirection.z) + 0.5f;
                 float dipY = -cameraShakeIntensity * shakeFactor * frontalImpact;
-                
+
                 // 2. Sharp rotational roll towards the impact side
                 float sideImpact = cameraShakeDirection.x;
                 float dipTilt = (cameraShakeIntensity * 15f) * sideImpact * shakeFactor;
-                
+
                 // If it's purely a frontal crash with no side impact, add a slight random tilt
-                if (Mathf.Abs(sideImpact) < 0.1f) 
+                if (Mathf.Abs(sideImpact) < 0.1f)
                     dipTilt = (cameraShakeIntensity * 5f) * shakeFactor * (Mathf.PerlinNoise(Time.time, 0) > 0.5f ? 1 : -1);
-                
+
                 // 3. Organic rattle (much lighter now)
                 float rattle = (Mathf.PerlinNoise(Time.time * 30f, 0f) - 0.5f) * (cameraShakeIntensity * 0.2f) * shakeFactor;
 
                 desiredY += dipY + rattle;
-                currentTilt += dipTilt + (rattle * 5f); 
+                currentTilt += dipTilt + (rattle * 5f);
             }
 
             float smoothedY = Mathf.Lerp(cameraParent.localPosition.y, desiredY, Time.deltaTime * 15f);
