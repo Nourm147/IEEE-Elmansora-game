@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
@@ -9,16 +10,20 @@ public class TimeManager : MonoBehaviour
     public static event Action<bool> OnTimeShifted;
 
     [Header("Time Settings")]
-    public bool isPresent = true; 
+    public bool isPresent = true;
     public float cooldownDuration = 3f;
 
     [Header("UI Elements")]
-    public Image fadeImage; 
+    public Image fadeImage;
     public float fadeSpeed = 0.5f;
-    public TextMeshProUGUI yearText; 
-    public TextMeshProUGUI instructionText; 
+    public TextMeshProUGUI yearText;
+    public TextMeshProUGUI instructionText;
 
     private bool isShifting = false;
+
+    [Header("Events")]
+    public UnityEvent onPresentShift;
+    public UnityEvent onPastShift;
 
     void Start()
     {
@@ -51,6 +56,12 @@ public class TimeManager : MonoBehaviour
 
         isPresent = !isPresent;
         OnTimeShifted?.Invoke(isPresent);
+
+        if (isPresent)
+            onPresentShift.Invoke();
+        else
+            onPastShift.Invoke();
+
         yearText.text = isPresent ? "Year: 2026" : "Year: 1926";
 
         yield return new WaitForSeconds(0.2f);

@@ -1258,8 +1258,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   rotationAxis: {x: 0, y: 0, z: 1}
-  rotationSpeed: 0.5
-  invertDirection: 1
+  trackingSpeed: 0.1
+  enableClamp: 1
+  minAngle: -60
+  maxAngle: 60
   OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2526,8 +2528,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   rotationAxis: {x: 0, y: 1, z: 0}
-  rotationSpeed: 0.5
-  invertDirection: 0
+  trackingSpeed: 0.01
+  enableClamp: 1
+  minAngle: -45
+  maxAngle: 45
   OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2758,6 +2762,12 @@ MonoBehaviour:
   fadeSpeed: 0.5
   yearText: {fileID: 1016881850}
   instructionText: {fileID: 792715872}
+  onPresentShift:
+    m_PersistentCalls:
+      m_Calls: []
+  onPastShift:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1285648492
 Transform:
   m_ObjectHideFlags: 0
@@ -2821,8 +2831,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotationSync
   rotationAxis: {x: 0, y: 1, z: 0}
-  angleMultiplier: 0.1
-  enableClamp: 1
+  angleMultiplier: 1
+  enableClamp: 0
   minAngle: -45
   maxAngle: 45
 --- !u!23 &1346584264
@@ -3116,7 +3126,7 @@ GameObject:
   - component: {fileID: 1455739065}
   - component: {fileID: 1455739066}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: LightSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3644,6 +3654,10 @@ PrefabInstance:
     - target: {fileID: 7816752794786842868, guid: 2c0a32278f5f1b4408088dc55b9794c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7816752794786842870, guid: 2c0a32278f5f1b4408088dc55b9794c5, type: 3}
+      propertyPath: currentStateDebug
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8170405597500213773, guid: 2c0a32278f5f1b4408088dc55b9794c5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15394,8 +15408,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotationSync
   rotationAxis: {x: 0, y: 1, z: 0}
-  angleMultiplier: 0.1
-  enableClamp: 1
+  angleMultiplier: 1
+  enableClamp: 0
   minAngle: -60
   maxAngle: 60
 --- !u!64 &7672161379841083959
