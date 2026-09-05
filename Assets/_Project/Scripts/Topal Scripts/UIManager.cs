@@ -15,19 +15,15 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        // ÅÙåÇÑ ÇáãÇæÓ æÊÍÑíÑå İí ÇáŞÇÆãÉ
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // ÊİÚíá ãäíæ ÇáÈÏÇíÉ æŞİá ÇáÅÚÏÇÏÇÊ
         mainMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
 
-        // ÇÓÊÑÌÇÚ ÇáŞíã ÇáãÍİæÙÉ ãÓÈŞÇğ
         float savedVolume = PlayerPrefs.GetFloat("GameVolume", 1f);
         float savedSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 2f);
 
-        // ÊÙÈíØ ÇáÜ Sliders æÑÈØåÇ ÈÇáÊÛííÑÇÊ
         if (volumeSlider != null)
         {
             volumeSlider.value = savedVolume;
@@ -43,10 +39,8 @@ public class UIManager : MonoBehaviour
 
     public void PlayGame()
     {
-        // ÍİÙ ÇáÅÚÏÇÏÇÊ ÈÔßá äåÇÆí ŞÈá ÇáÇäÊŞÇá
         PlayerPrefs.Save();
 
-        // ÊÍãíá ãÔåÏ ÇááÚÈÉ (ÊÃßÏ Åä ÇáÇäÏßÓ ÈÊÇÚå 1 İí ÇáÜ Build Settings)
         SceneManager.LoadScene(1);
     }
 
