@@ -12,8 +12,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b46a7e956e07f049bdd0566e463392a, type: 3}
   m_Name: Grabed
   m_EditorClassIdentifier: Assembly-CSharp::InteractableInputConfig
-  selectAction: {fileID: -7988191694426984355, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  activateAction: {fileID: 0}
-  rotateModifierAction: {fileID: -4090225696740746782, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  lookDeltaAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  scrollAction: {fileID: 6240969308177333660, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  selectEnterAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Select Enter
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 7b405523-2c1e-4812-8728-22ea07bef0e4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 01df12a8-d958-4500-a9ef-c1ba5840b5bd
+        m_Path: <Mouse>/leftButton
+        m_Interactions: Press
+        m_Processors: 
+        m_Groups: 
+        m_Action: Select Enter
+        m_Flags: 0
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: -7988191694426984355, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  selectCancelAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Select Cancel
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: a0168d62-b1fc-4ebe-895a-401a0d633986
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: ba08854e-bbf9-419d-a286-9f63b01863e0
+        m_Path: <Mouse>/leftButton
+        m_Interactions: Press(behavior=1)
+        m_Processors: 
+        m_Groups: 
+        m_Action: Select Cancel
+        m_Flags: 0
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 0}
+  activateAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Activate
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f8da00b6-ec38-4957-9600-5862c6cc7ee0
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 0}
+  rotateModifierAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Rotate Modifier
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 4936b303-8f23-4d4d-9c2f-a41304aa71c4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: -4090225696740746782, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  lookDeltaAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Look Delta
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b8515123-fce4-46bb-98f8-0a0c5f388a14
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  scrollAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Scroll
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 059945ab-2242-4028-adce-1b4d0927d0a3
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 6240969308177333660, guid: 052faaac586de48259a63d0c4782560b, type: 3}

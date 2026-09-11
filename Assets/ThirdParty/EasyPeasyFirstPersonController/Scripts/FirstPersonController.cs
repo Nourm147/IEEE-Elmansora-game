@@ -1,6 +1,8 @@
 namespace EasyPeasyFirstPersonController
 {
+    using Unity.Cinemachine;
     using UnityEngine;
+    using UnityEngine.InputSystem;
 
     public partial class FirstPersonController : MonoBehaviour
     {
@@ -32,7 +34,6 @@ namespace EasyPeasyFirstPersonController
         public Transform cameraParent;
         public Transform groundCheck;
         public LayerMask groundMask;
-        public RayInteractor rayInteractor; // Reference to the object interactor
 
         [HideInInspector] public CharacterController characterController;
         [HideInInspector] public IInputManager input;
@@ -56,7 +57,7 @@ namespace EasyPeasyFirstPersonController
         public float bobSpeed = 12f;
         public float recoilReturnSpeed = 5f;
 
-        [HideInInspector] public Camera cam;
+        [HideInInspector] public CinemachineCamera virtualCamera;
         [HideInInspector] public float targetFov;
         [HideInInspector] public float currentBobIntensity;
         [HideInInspector] public float currentBobSpeed;
@@ -109,7 +110,17 @@ namespace EasyPeasyFirstPersonController
 
         private void Awake()
         {
-            cam = playerCamera.GetComponent<Camera>();
+            virtualCamera = playerCamera.GetComponent<CinemachineCamera>();
+            if (virtualCamera == null)
+            {
+                Debug.LogError("FirstPersonController: No CinemachineCamera found on 'playerCamera'. " +
+                    "Assign the Virtual Camera's transform, with Position and Rotation controls set to 'None'.", this);
+            }
+            else
+            {
+                virtualCamera.Lens.FieldOfView = normalFov;
+            }
+
             targetFov = normalFov;
             targetCameraY = standingCameraHeight;
             originalCamY = standingCameraHeight;
@@ -121,13 +132,6 @@ namespace EasyPeasyFirstPersonController
             standingCharacterControllerHeight = characterController.height;
             standingCharacterControllerCenter = characterController.center;
             input = GetComponent<IInputManager>();
-
-            // Auto-find RayInteractor if not assigned manually in Inspector
-            if (rayInteractor == null)
-            {
-                rayInteractor = GetComponentInChildren<RayInteractor>();
-            }
-
             states = new PlayerStateFactory(this);
 
             currentState = states.Grounded();
@@ -148,15 +152,12 @@ namespace EasyPeasyFirstPersonController
 
         private void HandleRotation()
         {
-            float mouseX = input.lookInput.x * mouseSensitivity;
-            float mouseY = input.lookInput.y * mouseSensitivity;
+            // Check if Right Mouse Button is currently held down
+            bool isRightClicking = Mouse.current != null && Mouse.current.rightButton.isPressed;
 
-            // Lock camera look rotation if an object is currently being inspected/rotated via RMB
-            if (rayInteractor != null && rayInteractor.IsRotatingObject)
-            {
-                mouseX = 0f;
-                mouseY = 0f;
-            }
+            // Lock camera look rotation while holding Right Mouse Button
+            float mouseX = isRightClicking ? 0f : input.lookInput.x * mouseSensitivity;
+            float mouseY = isRightClicking ? 0f : input.lookInput.y * mouseSensitivity;
 
             transform.Rotate(Vector3.up * mouseX);
 
@@ -167,6 +168,7 @@ namespace EasyPeasyFirstPersonController
             float combinedTargetTilt = (useCameraTilt ? targetTilt : 0) + strafeTilt;
 
             currentTilt = Mathf.SmoothDamp(currentTilt, combinedTargetTilt, ref tiltVelocity, 0.1f);
+
             playerCamera.localRotation = Quaternion.Euler(xRotation, 0, currentTilt);
         }
 
@@ -176,7 +178,11 @@ namespace EasyPeasyFirstPersonController
             {
                 targetFov = normalFov;
             }
-            cam.fieldOfView = Mathf.SmoothDamp(cam.fieldOfView, targetFov, ref fovVelocity, 1f / fovChangeSpeed);
+
+            if (virtualCamera != null)
+            {
+                virtualCamera.Lens.FieldOfView = Mathf.SmoothDamp(virtualCamera.Lens.FieldOfView, targetFov, ref fovVelocity, 1f / fovChangeSpeed);
+            }
 
             // Smoothly track the base camera height independent of headbob
             originalCamY = Mathf.Lerp(originalCamY, targetCameraY, Time.deltaTime * 8f);
@@ -216,7 +222,7 @@ namespace EasyPeasyFirstPersonController
                 if (Mathf.Abs(sideImpact) < 0.1f)
                     dipTilt = (cameraShakeIntensity * 5f) * shakeFactor * (Mathf.PerlinNoise(Time.time, 0) > 0.5f ? 1 : -1);
 
-                // 3. Organic rattle (much lighter now)
+                // 3. Organic rattle
                 float rattle = (Mathf.PerlinNoise(Time.time * 30f, 0f) - 0.5f) * (cameraShakeIntensity * 0.2f) * shakeFactor;
 
                 desiredY += dipY + rattle;
@@ -244,6 +250,7 @@ namespace EasyPeasyFirstPersonController
 
             return Physics.SphereCast(origin, radius, Vector3.up, out _, checkDistance, groundMask, QueryTriggerInteraction.Ignore);
         }
+
         public bool CheckLedge(out Vector3 climbPosition)
         {
             climbPosition = Vector3.zero;
@@ -284,6 +291,5 @@ namespace EasyPeasyFirstPersonController
                 isInWater = false;
             }
         }
-
     }
 }
