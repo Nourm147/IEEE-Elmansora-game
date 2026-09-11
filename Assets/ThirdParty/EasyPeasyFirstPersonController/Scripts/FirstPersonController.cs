@@ -2,6 +2,7 @@ namespace EasyPeasyFirstPersonController
 {
     using Unity.Cinemachine;
     using UnityEngine;
+    using UnityEngine.InputSystem;
 
     public partial class FirstPersonController : MonoBehaviour
     {
@@ -29,10 +30,6 @@ namespace EasyPeasyFirstPersonController
         public float slideSteerControl = 4f;
 
         [Header("References")]
-        // Assign the Cinemachine Camera's transform here (the GameObject
-        // that has the CinemachineCamera component). In its Inspector,
-        // set Position Control and Rotation Control to "None" so Cinemachine 
-        // leaves this transform alone and lets this script drive it directly.
         public Transform playerCamera;
         public Transform cameraParent;
         public Transform groundCheck;
@@ -60,8 +57,6 @@ namespace EasyPeasyFirstPersonController
         public float bobSpeed = 12f;
         public float recoilReturnSpeed = 5f;
 
-        // Reference to the Cinemachine Camera living on playerCamera.
-        // FOV is now driven through this instead of a raw Camera component.
         [HideInInspector] public CinemachineCamera virtualCamera;
         [HideInInspector] public float targetFov;
         [HideInInspector] public float currentBobIntensity;
@@ -157,8 +152,12 @@ namespace EasyPeasyFirstPersonController
 
         private void HandleRotation()
         {
-            float mouseX = input.lookInput.x * mouseSensitivity;
-            float mouseY = input.lookInput.y * mouseSensitivity;
+            // Check if Right Mouse Button is currently held down
+            bool isRightClicking = Mouse.current != null && Mouse.current.rightButton.isPressed;
+
+            // Lock camera look rotation while holding Right Mouse Button
+            float mouseX = isRightClicking ? 0f : input.lookInput.x * mouseSensitivity;
+            float mouseY = isRightClicking ? 0f : input.lookInput.y * mouseSensitivity;
 
             transform.Rotate(Vector3.up * mouseX);
 
@@ -223,7 +222,7 @@ namespace EasyPeasyFirstPersonController
                 if (Mathf.Abs(sideImpact) < 0.1f)
                     dipTilt = (cameraShakeIntensity * 5f) * shakeFactor * (Mathf.PerlinNoise(Time.time, 0) > 0.5f ? 1 : -1);
 
-                // 3. Organic rattle (much lighter now)
+                // 3. Organic rattle
                 float rattle = (Mathf.PerlinNoise(Time.time * 30f, 0f) - 0.5f) * (cameraShakeIntensity * 0.2f) * shakeFactor;
 
                 desiredY += dipY + rattle;
@@ -251,6 +250,7 @@ namespace EasyPeasyFirstPersonController
 
             return Physics.SphereCast(origin, radius, Vector3.up, out _, checkDistance, groundMask, QueryTriggerInteraction.Ignore);
         }
+
         public bool CheckLedge(out Vector3 climbPosition)
         {
             climbPosition = Vector3.zero;
@@ -291,6 +291,5 @@ namespace EasyPeasyFirstPersonController
                 isInWater = false;
             }
         }
-
     }
 }
