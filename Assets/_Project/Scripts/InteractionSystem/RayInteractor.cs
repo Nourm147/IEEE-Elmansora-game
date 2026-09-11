@@ -58,7 +58,6 @@ public class RayInteractor : MonoBehaviour, IInteractor
             _hoveredInteractable = null;
         }
     }
-
     private void HandleInput()
     {
         BaseInteractable target = _selectedInteractable != null ? _selectedInteractable : _hoveredInteractable;
@@ -66,10 +65,10 @@ public class RayInteractor : MonoBehaviour, IInteractor
 
         var config = target.InputConfig;
 
-        // Select / Drop
-        if (config.selectAction != null && config.selectAction.action.WasPressedThisFrame())
+        // Select Enter (Pick up - Triggers on PRESS)
+        if (_selectedInteractable == null)
         {
-            if (_selectedInteractable == null)
+            if (config.selectEnterAction.action != null && config.selectEnterAction.action.WasPressedThisFrame())
             {
                 _selectedInteractable = target;
 
@@ -80,18 +79,23 @@ public class RayInteractor : MonoBehaviour, IInteractor
 
                 InteractionManager.Instance.SelectEnter(this, _selectedInteractable);
             }
-            else
+        }
+        // Select Cancel (Drop - Triggers on RELEASE)
+        else
+        {
+            if (config.selectCancelAction.action != null && config.selectCancelAction.action.WasReleasedThisFrame())
             {
                 InteractionManager.Instance.SelectExit(this, _selectedInteractable);
                 _selectedInteractable = null;
                 IsRotatingObject = false;
+                return; // Early return to avoid triggering activate/rotate on the same frame it is dropped
             }
         }
 
         if (_selectedInteractable == null) return;
 
         // Activate (Fire/Use)
-        if (config.activateAction != null)
+        if (config.activateAction.action != null)
         {
             if (config.activateAction.action.WasPressedThisFrame())
                 InteractionManager.Instance.Activate(this, _selectedInteractable);
@@ -99,8 +103,8 @@ public class RayInteractor : MonoBehaviour, IInteractor
                 InteractionManager.Instance.Deactivate(this, _selectedInteractable);
         }
 
-        // Rotate object logic (Right Mouse Button)
-        if (config.rotateModifierAction != null && config.lookDeltaAction != null)
+        // Rotate object logic
+        if (config.rotateModifierAction.action != null && config.lookDeltaAction.action != null)
         {
             IsRotatingObject = config.rotateModifierAction.action.IsPressed();
 
@@ -114,7 +118,7 @@ public class RayInteractor : MonoBehaviour, IInteractor
         }
 
         // Scroll distance logic (Mouse Scroll Wheel)
-        if (config.scrollAction != null)
+        if (config.scrollAction.action != null)
         {
             float scrollDelta = config.scrollAction.action.ReadValue<Vector2>().y;
 
