@@ -23,24 +23,19 @@ public class BeamManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Update()
-    {
-        // Reset the active beam counter at the start of every frame
-        _activeBeamsThisFrame = 0;
-    }
 
     private void LateUpdate()
     {
-        // Turn off any beams in the pool that weren't used this frame
         for (int i = _activeBeamsThisFrame; i < _beamPool.Count; i++)
         {
             _beamPool[i].TurnOff();
         }
+
+        _activeBeamsThisFrame = 0;
     }
 
     public LightBeam GetBeam()
     {
-        // Expand the pool if we need more beams than currently available
         if (_activeBeamsThisFrame >= _beamPool.Count)
         {
             LightBeam newBeam = Instantiate(beamPrefab, transform);
@@ -51,7 +46,6 @@ public class BeamManager : MonoBehaviour
         _activeBeamsThisFrame++;
         return beam;
     }
-
 
     public void FinishPuzzle()
     {
