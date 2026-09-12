@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
         float savedVolume = PlayerPrefs.GetFloat("GameVolume", 1f);
         float savedSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 2f);
 
+        AudioListener.volume = savedVolume;
+
         if (volumeSlider != null)
         {
             volumeSlider.value = savedVolume;
@@ -40,7 +42,6 @@ public class UIManager : MonoBehaviour
     public void PlayGame()
     {
         PlayerPrefs.Save();
-
         SceneManager.LoadScene(1);
     }
 
@@ -58,6 +59,7 @@ public class UIManager : MonoBehaviour
 
     public void SetVolume(float val)
     {
+        AudioListener.volume = val;
         PlayerPrefs.SetFloat("GameVolume", val);
     }
 

@@ -12,12 +12,17 @@ public class TimeManager : MonoBehaviour
     [Header("Time Settings")]
     public bool isPresent = true;
     public float cooldownDuration = 3f;
+    private AudioSource As;
 
     [Header("UI Elements")]
     public Image fadeImage;
     public float fadeSpeed = 0.5f;
     public TextMeshProUGUI yearText;
     public TextMeshProUGUI instructionText;
+
+    [Header("Shader settings")]
+    public Material[] baseMaterials;
+
 
     private bool isShifting = false;
 
@@ -29,6 +34,11 @@ public class TimeManager : MonoBehaviour
     {
         UpdateUI();
         if (fadeImage != null) fadeImage.color = new Color(0, 0, 0, 0);
+        foreach (Material mat in baseMaterials)
+        {
+            mat.SetFloat("_Age_Factor", 0.75f);
+        }
+        As = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -43,7 +53,7 @@ public class TimeManager : MonoBehaviour
     {
         isShifting = true;
         instructionText.text = "Shifting...";
-
+        As.Play();
         float timer = 0f;
         Color c = fadeImage.color;
         while (timer < fadeSpeed)
@@ -58,10 +68,23 @@ public class TimeManager : MonoBehaviour
         OnTimeShifted?.Invoke(isPresent);
 
         if (isPresent)
+        {
             onPresentShift.Invoke();
+            //  Shader.SetGlobalFloat("Age_Factor", 0.5f);
+            foreach (Material mat in baseMaterials)
+            {
+                mat.SetFloat("_Age_Factor", 0.75f);
+            }
+        }
         else
+        {
             onPastShift.Invoke();
-
+            //Shader.SetGlobalFloat("Age_Factor", 0f);
+            foreach (Material mat in baseMaterials)
+            {
+                mat.SetFloat("_Age_Factor", 0f);
+            }
+        }
         yearText.text = isPresent ? "Year: 2026" : "Year: 1926";
 
         yield return new WaitForSeconds(0.2f);
@@ -74,6 +97,7 @@ public class TimeManager : MonoBehaviour
             fadeImage.color = c;
             yield return null;
         }
+        As.Stop();
 
         float cooldownTimer = cooldownDuration;
         while (cooldownTimer > 0)
@@ -92,4 +116,5 @@ public class TimeManager : MonoBehaviour
         yearText.text = isPresent ? "Year: 2026" : "Year: 1926";
         instructionText.text = "Press [T] to Shift Time";
     }
+   
 }

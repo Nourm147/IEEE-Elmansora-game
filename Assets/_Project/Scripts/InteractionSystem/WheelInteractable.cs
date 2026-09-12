@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class WheelInteractable : BaseInteractable
 {
-    [Header("Input Settings")]
+ [Header("Input Settings")]
     [Tooltip("Input action for turning (supports Axis or Vector2, e.g. Left/Right arrows or A/D keys).")]
     public InputActionProperty turnAction;
 
@@ -18,6 +18,10 @@ public class WheelInteractable : BaseInteractable
     [Tooltip("The maximum allowed total angle.")]
     public float maxAngle = 45f;
 
+    [Header("Audio Settings")]
+    [Tooltip("«”Õ» «·‹ AudioSource Â‰«")]
+    public AudioSource wheelAudioSource;
+
     [Header("Rotation Events")]
     [Tooltip("Fired whenever the rotation angle changes. Hook this up to RotationSync.SetRotation in the Inspector.")]
     public UnityEvent<float> onAngleChanged;
@@ -29,9 +33,18 @@ public class WheelInteractable : BaseInteractable
         turnAction.action?.Enable();
     }
 
+    private void OnDisable()
+    {
+        StopAudio();
+    }
+
     private void Update()
     {
-        if (!IsSelected || turnAction.action == null) return;
+        if (!IsSelected || turnAction.action == null)
+        {
+            StopAudio();
+            return;
+        }
 
         float inputVal = 0f;
 
@@ -47,6 +60,8 @@ public class WheelInteractable : BaseInteractable
 
         if (Mathf.Abs(inputVal) > 0.01f)
         {
+            float previousAngle = _currentAngle;
+
             _currentAngle += inputVal * turnSensitivity * Time.deltaTime;
 
             if (enableClamp)
@@ -54,7 +69,35 @@ public class WheelInteractable : BaseInteractable
                 _currentAngle = Mathf.Clamp(_currentAngle, minAngle, maxAngle);
             }
 
-            onAngleChanged?.Invoke(_currentAngle);
+            if (Mathf.Abs(_currentAngle - previousAngle) > 0.001f)
+            {
+                onAngleChanged?.Invoke(_currentAngle);
+                PlayAudio(); 
+            }
+            else
+            {
+                StopAudio();
+            }
+        }
+        else
+        {
+            StopAudio();
+        }
+    }
+
+    private void PlayAudio()
+    {
+        if (wheelAudioSource != null && !wheelAudioSource.isPlaying)
+        {
+            wheelAudioSource.Play();
+        }
+    }
+
+    private void StopAudio()
+    {
+        if (wheelAudioSource != null && wheelAudioSource.isPlaying)
+        {
+            wheelAudioSource.Stop();
         }
     }
 }
