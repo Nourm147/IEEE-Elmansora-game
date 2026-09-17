@@ -29,6 +29,14 @@ public class RayInteractor : MonoBehaviour, IInteractor
 
     void Update()
     {
+        // Force drop if the object became disabled (e.g. due to time shift)
+        if (_selectedInteractable != null && !_selectedInteractable.isActiveAndEnabled)
+        {
+            InteractionManager.Instance.SelectExit(this, _selectedInteractable);
+            _selectedInteractable = null;
+            IsRotatingObject = false;
+        }
+
         HandleRaycast();
         HandleInput();
     }
@@ -42,6 +50,8 @@ public class RayInteractor : MonoBehaviour, IInteractor
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayer))
         {
             var interactable = hit.collider.GetComponentInParent<BaseInteractable>();
+            if (interactable != null && !interactable.isActiveAndEnabled) interactable = null;
+
             if (interactable != _hoveredInteractable)
             {
                 if (_hoveredInteractable != null)
