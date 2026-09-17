@@ -21,6 +21,13 @@ public class TimeManager : MonoBehaviour
     public float cooldownDuration = 3f;
     private AudioSource _audioSource;
 
+    [Header("Player Tracking")]
+    public Transform playerTransform;
+    private Vector3 _presentPosition;
+    private Quaternion _presentRotation;
+    private Vector3 _pastPosition;
+    private Quaternion _pastRotation;
+
     [Header("UI Elements")]
     public Image fadeImage;
     public float fadeSpeed = 0.5f;
@@ -41,6 +48,14 @@ public class TimeManager : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         UpdateUI();
+
+        if (playerTransform != null)
+        {
+            _presentPosition = playerTransform.position;
+            _presentRotation = playerTransform.rotation;
+            _pastPosition = playerTransform.position;
+            _pastRotation = playerTransform.rotation;
+        }
         
         if (fadeImage != null) fadeImage.color = new Color(0, 0, 0, 0);
         
@@ -85,7 +100,38 @@ public class TimeManager : MonoBehaviour
             yield return new WaitForSeconds(fadeSpeed);
         }
 
+        // Save current position before shifting
+        if (playerTransform != null)
+        {
+            if (isPresent)
+            {
+                _presentPosition = playerTransform.position;
+                _presentRotation = playerTransform.rotation;
+            }
+            else
+            {
+                _pastPosition = playerTransform.position;
+                _pastRotation = playerTransform.rotation;
+            }
+        }
+
         isPresent = !isPresent;
+
+        // Teleport to the new state
+        if (playerTransform != null)
+        {
+            // CharacterControllers need to be disabled to teleport them properly
+            CharacterController cc = playerTransform.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+            
+            if (isPresent)
+                playerTransform.SetPositionAndRotation(_presentPosition, _presentRotation);
+            else
+                playerTransform.SetPositionAndRotation(_pastPosition, _pastRotation);
+                
+            if (cc != null) cc.enabled = true;
+        }
+
         OnTimeShifted?.Invoke(isPresent);
 
         if (isPresent)
