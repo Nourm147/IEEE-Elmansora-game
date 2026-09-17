@@ -104,8 +104,8 @@ namespace EasyPeasyFirstPersonController
 
         void OnGUI()
         {
-            if (currentState != null && Application.isEditor && currentStateDebug)
-                GUILayout.Label("Current State: " + currentState.GetType().Name);
+         //   if (currentState != null && Application.isEditor && currentStateDebug)
+               // GUILayout.Label("Current State: " + currentState.GetType().Name);
         }
 
         private void Awake()
@@ -113,8 +113,8 @@ namespace EasyPeasyFirstPersonController
             virtualCamera = playerCamera.GetComponent<CinemachineCamera>();
             if (virtualCamera == null)
             {
-                Debug.LogError("FirstPersonController: No CinemachineCamera found on 'playerCamera'. " +
-                    "Assign the Virtual Camera's transform, with Position and Rotation controls set to 'None'.", this);
+          //      Debug.LogError("FirstPersonController: No CinemachineCamera found on 'playerCamera'. " +
+             //       "Assign the Virtual Camera's transform, with Position and Rotation controls set to 'None'.", this);
             }
             else
             {
