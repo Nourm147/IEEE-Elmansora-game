@@ -93,7 +93,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Age_Factor: 0
+    - _Age_Factor: 0.75
     - _BUILTIN_QueueControl: 0
     - _Cull: 2
     - _Param_AO: 0.816
