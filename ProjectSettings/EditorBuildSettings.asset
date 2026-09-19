@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/FinalScenes/Room_3.unity
     guid: 5b7b847b763fe284398d78bcdf165e21
+  - enabled: 1
+    path: Assets/_Project/Scenes/Winning.unity
+    guid: 80937ab12d2b7f14a80ac543e1051503
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
