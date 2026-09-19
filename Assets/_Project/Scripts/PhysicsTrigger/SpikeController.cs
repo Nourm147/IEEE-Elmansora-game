@@ -6,7 +6,7 @@ public class SpikeController : MonoBehaviour
 {
     [SerializeField] private List<TriggerEvent> ActiveSpikes;
 
-    void Start()
+    private void Awake()
     {
         ActiveSpikes = GetComponentsInChildren<TriggerEvent>().ToList();
     }
