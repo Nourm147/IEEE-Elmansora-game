@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "IEEE-Elmansora-game.slnx"
+    "dotnet.defaultSolution": "IEEE Elmansora game.slnx"
 }

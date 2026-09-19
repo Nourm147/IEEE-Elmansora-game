@@ -21,7 +21,9 @@ public class LightBeam : MonoBehaviour
     // Added bounceCount parameter to track depth
     public void Shoot(Vector3 startPos, Vector3 direction, int bounceCount)
     {
-        // Safety check to prevent infinite reflection loops
+
+        Physics.SyncTransforms();
+
         if (bounceCount > BeamManager.Instance.maxBounces)
         {
             return;
@@ -29,30 +31,33 @@ public class LightBeam : MonoBehaviour
 
         _lineRenderer.enabled = true;
         Vector3 rayStart = startPos + (direction.normalized * RayOffset);
-
         _lineRenderer.SetPosition(0, startPos);
 
-        if (Physics.Raycast(rayStart, direction, out RaycastHit hit, maxDistance, interactLayer))
+        // Fire ONE raycast that stops at the very first object it hits
+        if (Physics.Raycast(rayStart, direction, out RaycastHit hit, maxDistance))
         {
             _lineRenderer.SetPosition(1, hit.point);
 
-            if (hit.collider.TryGetComponent(out MirrorNode mirror))
+            // Convert the hit object's layer into a bitmask to compare against your LayerMasks
+            int hitLayer = 1 << hit.collider.gameObject.layer;
+
+            // Check if the object we hit is part of the interactLayer
+            if ((hitLayer & interactLayer.value) != 0)
             {
-                // Trigger the next bounce immediately
-                mirror.Reflect(hit.point, direction, hit.normal, bounceCount);
+                if (hit.collider.TryGetComponent(out MirrorNode mirror))
+                {
+                    mirror.Reflect(hit.point, direction, hit.normal, bounceCount);
+                }
             }
-        }
-        else if (Physics.Raycast(rayStart, direction, out RaycastHit hit2, maxDistance, winLayer))
-        {
-            _lineRenderer.SetPosition(1, hit2.point);
-            BeamManager.Instance.FinishPuzzle();
-        }
-        else if (Physics.Raycast(rayStart, direction, out RaycastHit hit3, maxDistance))
-        {
-            _lineRenderer.SetPosition(1, hit3.point);
+            // If not interactable, check if it is part of the winLayer
+            else if ((hitLayer & winLayer.value) != 0)
+            {
+                BeamManager.Instance.FinishPuzzle();
+            }
         }
         else
         {
+            // The ray hit nothing at all
             _lineRenderer.SetPosition(1, startPos + direction * maxDistance);
         }
     }

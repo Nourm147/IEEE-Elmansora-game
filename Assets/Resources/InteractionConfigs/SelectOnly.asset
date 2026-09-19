@@ -25,7 +25,7 @@ MonoBehaviour:
       - m_Name: 
         m_Id: 192ef014-9b3b-43dd-afa6-dd8450182632
         m_Path: <Mouse>/leftButton
-        m_Interactions: Press
+        m_Interactions: 
         m_Processors: 
         m_Groups: 
         m_Action: Select Enter
@@ -45,8 +45,8 @@ MonoBehaviour:
       m_SingletonActionBindings:
       - m_Name: 
         m_Id: ba569f15-4523-4dd9-b1f4-35d2ae739970
-        m_Path: <Keyboard>/escape
-        m_Interactions: Press
+        m_Path: <Mouse>/leftButton
+        m_Interactions: 
         m_Processors: 
         m_Groups: 
         m_Action: Select Cancel
