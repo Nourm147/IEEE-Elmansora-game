@@ -41,6 +41,7 @@ public class TimeManager : MonoBehaviour
     private bool isShifting = false;
 
     [Header("Events")]
+    public UnityEvent onStartEvent;
     public UnityEvent onPresentShift;
     public UnityEvent onPastShift;
 
@@ -56,9 +57,9 @@ public class TimeManager : MonoBehaviour
             _pastPosition = playerTransform.position;
             _pastRotation = playerTransform.rotation;
         }
-        
+
         if (fadeImage != null) fadeImage.color = new Color(0, 0, 0, 0);
-        
+
         if (baseMaterials != null)
         {
             foreach (Material mat in baseMaterials)
@@ -66,6 +67,8 @@ public class TimeManager : MonoBehaviour
                 if (mat != null) mat.SetFloat("_Age_Factor", 0.75f);
             }
         }
+
+        onStartEvent.Invoke();
     }
 
     void Update()
@@ -81,9 +84,9 @@ public class TimeManager : MonoBehaviour
         isShifting = true;
         if (instructionText != null) instructionText.text = "Shifting...";
         if (_audioSource != null) _audioSource.Play();
-        
+
         float fadeTimer = 0f;
-        
+
         if (fadeImage != null)
         {
             Color fadeColor = fadeImage.color;
@@ -123,12 +126,12 @@ public class TimeManager : MonoBehaviour
             // CharacterControllers need to be disabled to teleport them properly
             CharacterController cc = playerTransform.GetComponent<CharacterController>();
             if (cc != null) cc.enabled = false;
-            
+
             if (isPresent)
                 playerTransform.SetPositionAndRotation(_presentPosition, _presentRotation);
             else
                 playerTransform.SetPositionAndRotation(_pastPosition, _pastRotation);
-                
+
             if (cc != null) cc.enabled = true;
         }
 
@@ -156,7 +159,7 @@ public class TimeManager : MonoBehaviour
                 }
             }
         }
-        
+
         if (yearText != null) yearText.text = isPresent ? "Year: 2026" : "Year: 1926";
 
         yield return new WaitForSeconds(0.2f);
@@ -177,7 +180,7 @@ public class TimeManager : MonoBehaviour
         {
             yield return new WaitForSeconds(fadeSpeed);
         }
-        
+
         if (_audioSource != null) _audioSource.Stop();
 
         float cooldownTimer = cooldownDuration;
@@ -197,5 +200,5 @@ public class TimeManager : MonoBehaviour
         if (yearText != null) yearText.text = isPresent ? "Year: 2026" : "Year: 1926";
         if (instructionText != null) instructionText.text = "Press [T] to Shift Time";
     }
-   
+
 }
