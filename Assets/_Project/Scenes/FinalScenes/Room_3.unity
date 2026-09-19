@@ -2916,6 +2916,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 614908223715113649, guid: e03eac0ba64bbff419a09299d36928c1, type: 3}
+      propertyPath: turnSensitivity
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 614908223715113649, guid: e03eac0ba64bbff419a09299d36928c1, type: 3}
       propertyPath: timeSettings.activeInPresent
       value: 0
       objectReference: {fileID: 0}
@@ -3030,6 +3034,10 @@ PrefabInstance:
     - target: {fileID: 8042991673827456241, guid: e03eac0ba64bbff419a09299d36928c1, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042991673827456241, guid: e03eac0ba64bbff419a09299d36928c1, type: 3}
+      propertyPath: turnSensitivity
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 8042991673827456241, guid: e03eac0ba64bbff419a09299d36928c1, type: 3}
       propertyPath: timeSettings.activeInPresent
@@ -11911,6 +11919,18 @@ PrefabInstance:
       propertyPath: instructionText
       value: 
       objectReference: {fileID: 139646108}
+    - target: {fileID: 7237964806721467964, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
+      propertyPath: baseMaterials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237964806721467964, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
+      propertyPath: 'baseMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bbad3fe44a0b0274aa3f9a13236504e4, type: 2}
+    - target: {fileID: 7237964806721467964, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
+      propertyPath: 'baseMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6fea00e2bb949774490a2196bed36fe5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1608055433849464295, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
