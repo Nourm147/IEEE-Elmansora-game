@@ -15,6 +15,8 @@ public class BeamManager : MonoBehaviour
     private List<LightBeam> _beamPool = new List<LightBeam>();
     private int _activeBeamsThisFrame = 0;
 
+    private bool finished = false;
+
     public UnityEvent onFinishEvent;
 
     private void Awake()
@@ -49,6 +51,10 @@ public class BeamManager : MonoBehaviour
 
     public void FinishPuzzle()
     {
-        onFinishEvent.Invoke();
+        if (!finished)
+        {
+            onFinishEvent.Invoke();
+            finished = true;
+        }
     }
 }

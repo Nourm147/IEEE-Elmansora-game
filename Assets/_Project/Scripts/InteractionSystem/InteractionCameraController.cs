@@ -1,7 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-[RequireComponent(typeof(BaseInteractable))]
 public class InteractionCameraController : MonoBehaviour
 {
     [Header("Camera References")]
