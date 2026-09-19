@@ -160,7 +160,7 @@ public class TimeManager : MonoBehaviour
             }
         }
 
-        if (yearText != null) yearText.text = isPresent ? "Year: 2026" : "Year: 1926";
+        if (yearText != null) yearText.text = isPresent ? "Year: 2026" : "Year: 1000 BCE";
 
         yield return new WaitForSeconds(0.2f);
 
@@ -197,7 +197,7 @@ public class TimeManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (yearText != null) yearText.text = isPresent ? "Year: 2026" : "Year: 1926";
+        if (yearText != null) yearText.text = isPresent ? "Year: 2026" : "Year: 1000 BCE";
         if (instructionText != null) instructionText.text = "Press [T] to Shift Time";
     }
 

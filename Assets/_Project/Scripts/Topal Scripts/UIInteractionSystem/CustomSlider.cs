@@ -45,11 +45,19 @@ public class CustomSlider : UIInteractableBase
             if (Vector3.Distance(transform.position, newPos) > 0.001f)
             {
                 transform.position = newPos;
+
                 if (slidingSound != null && !audioSource.isPlaying)
                 {
                     audioSource.clip = slidingSound;
                     audioSource.loop = true;
                     audioSource.Play();
+                }
+            }
+            else
+            {
+                if (audioSource.isPlaying && audioSource.clip == slidingSound)
+                {
+                    audioSource.Pause(); 
                 }
             }
 
