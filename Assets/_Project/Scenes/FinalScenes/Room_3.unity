@@ -12013,7 +12013,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1952371466147427783, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 139646107}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6518793719028306918, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1052534259}
   m_SourcePrefab: {fileID: 100100000, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
 --- !u!4 &1052534256 stripped
 Transform:
@@ -12031,6 +12034,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb33c6c529e86d43b92474c677d8c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+--- !u!1 &1052534258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6518793719028306918, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
+  m_PrefabInstance: {fileID: 1052534255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1052534259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052534258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0142cba1b440c4dbdb9c8e3b891433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  isMainMenu: 0
+  pauseCanvas: {fileID: 0}
+  localPlayerController: {fileID: 0}
+  volume3DSlider: {fileID: 0}
+  sensitivity3DSlider: {fileID: 0}
+  volume2DSlider: {fileID: 0}
+  sensitivity2DSlider: {fileID: 0}
 --- !u!1001 &1055911195
 PrefabInstance:
   m_ObjectHideFlags: 0
