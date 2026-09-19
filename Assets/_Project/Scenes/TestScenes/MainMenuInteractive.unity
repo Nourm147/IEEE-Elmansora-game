@@ -6293,7 +6293,7 @@ MonoBehaviour:
   hoverColor: {r: 1, g: 0.8, b: 0.5, a: 1}
   interactColor: {r: 1, g: 0, b: 0, a: 1}
   hoverSound: {fileID: 0}
-  interactSound: {fileID: 8300000, guid: f76ec0615dbb7a14fb0674532b2d6553, type: 3}
+  interactSound: {fileID: 0}
   minPoint: {fileID: 1253964216}
   maxPoint: {fileID: 365782140}
   OnValueChanged:
@@ -6311,7 +6311,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  slidingSound: {fileID: 0}
+  slidingSound: {fileID: 8300000, guid: ab20d00e7a13a7e4d9d80fb0a04099f7, type: 3}
 --- !u!1 &553948217
 GameObject:
   m_ObjectHideFlags: 0
@@ -10772,7 +10772,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.68039
+      value: 1.8825052
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalScale.y
@@ -10780,7 +10780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.425345
+      value: 1.0855427
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10788,11 +10788,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29851
+      value: -0.6964
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.06
+      value: 0.1713
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10880,7 +10880,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -11002,7 +11002,7 @@ MonoBehaviour:
   hoverColor: {r: 1, g: 0.8, b: 0.5, a: 1}
   interactColor: {r: 1, g: 0, b: 0, a: 1}
   hoverSound: {fileID: 0}
-  interactSound: {fileID: 0}
+  interactSound: {fileID: 8300000, guid: e8f6d0328614da142a63285e7c44eb2b, type: 3}
   OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -19383,27 +19383,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.551293
+      value: 2.6926637
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.2692616
+      value: 1.5311389
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.34029
+      value: 2.2207754
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.51286
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.43
+      value: 0.5379
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.06
+      value: 1.5775
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1308d4385777c4087d8a4454fd30ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19512,7 +19512,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -19613,7 +19613,7 @@ MonoBehaviour:
   hoverColor: {r: 1, g: 0.8, b: 0.5, a: 1}
   interactColor: {r: 1, g: 0, b: 0, a: 1}
   hoverSound: {fileID: 0}
-  interactSound: {fileID: 0}
+  interactSound: {fileID: 8300000, guid: e8f6d0328614da142a63285e7c44eb2b, type: 3}
   OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -21693,7 +21693,7 @@ MonoBehaviour:
   hoverColor: {r: 1, g: 0.8, b: 0.5, a: 1}
   interactColor: {r: 1, g: 0, b: 0, a: 1}
   hoverSound: {fileID: 0}
-  interactSound: {fileID: 8300000, guid: f76ec0615dbb7a14fb0674532b2d6553, type: 3}
+  interactSound: {fileID: 0}
   minPoint: {fileID: 187229831}
   maxPoint: {fileID: 1171391170}
   OnValueChanged:
@@ -21711,7 +21711,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  slidingSound: {fileID: 0}
+  slidingSound: {fileID: 8300000, guid: ab20d00e7a13a7e4d9d80fb0a04099f7, type: 3}
 --- !u!65 &1914762839
 BoxCollider:
   m_ObjectHideFlags: 0

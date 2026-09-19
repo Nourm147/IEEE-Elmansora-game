@@ -20112,7 +20112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   isMainMenu: 0
   pauseCanvas: {fileID: 0}
-  localPlayerController: {fileID: 0}
+  localPlayerController: {fileID: 1026796788}
   volume3DSlider: {fileID: 0}
   sensitivity3DSlider: {fileID: 0}
   volume2DSlider: {fileID: 0}

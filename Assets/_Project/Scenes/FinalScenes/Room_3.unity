@@ -12053,11 +12053,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   isMainMenu: 0
   pauseCanvas: {fileID: 0}
-  localPlayerController: {fileID: 0}
+  localPlayerController: {fileID: 1052534260}
   volume3DSlider: {fileID: 0}
   sensitivity3DSlider: {fileID: 0}
   volume2DSlider: {fileID: 0}
   sensitivity2DSlider: {fileID: 0}
+--- !u!114 &1052534260 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9186750476407243122, guid: fce7ca384c3f6c442bce60b50b477edc, type: 3}
+  m_PrefabInstance: {fileID: 1052534255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134052866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2922308556bc98e4898cb3309250e781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1055911195
 PrefabInstance:
   m_ObjectHideFlags: 0
